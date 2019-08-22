@@ -1,0 +1,22 @@
+﻿I'm sorry, but an uncaught exception occurred.
+
+While running game code:
+  File "game/script.rpy", line 345, in script
+    jump expression "choice"
+ScriptError: could not find label 'choice'.
+
+-- Full Traceback ------------------------------------------------------------
+
+Full traceback:
+  File "game/script.rpy", line 345, in script
+    jump expression "choice"
+  File "C:\Users\tdaniel\Downloads\renpy-7.3.2-sdk\renpy\ast.py", line 1695, in execute
+    rv = renpy.game.script.lookup(target)
+  File "C:\Users\tdaniel\Downloads\renpy-7.3.2-sdk\renpy\script.py", line 894, in lookup
+    raise ScriptError("could not find label '%s'." % str(original))
+ScriptError: could not find label 'choice'.
+
+Windows-8-6.2.9200
+Ren'Py 7.3.2.320
+Star Colony 1.0
+Thu Aug 22 11:17:04 2019
