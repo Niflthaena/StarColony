@@ -95,6 +95,30 @@ init python:
         unregisterQuest(id)
         renpy.call(quest[2])
         return
+    def showQuestLog():
+        questTexts = []
+        for id, quest in TemporaryQuests.items():
+            questTexts.append(quest[0])
+        for id, quest in PersistentQuests.items():
+            questTexts.append(quest[0])
+        renpy.show_screen('questLog', questTexts)
+        renpy.restart_interaction()
+        return
+
+    ## Quest log button definition. Located here so it's in scope for the showQuestLog function.
+    def quest_button():
+        if len(TemporaryQuests) + len(PersistentQuests) > 0:
+            ui.frame(
+                xpos = 100,
+                ypos = 25
+                )
+            ui.imagebutton(
+                idle = "gui/questlog_idle.png",
+                hover = "gui/questlog_hover.png",
+                action = showQuestLog
+                )
+    config.overlay_functions.append(quest_button)
+
 
     # Resource ratio helper functions
     # Because these are all ints, and division floors by default, these helper functions will get around that.
