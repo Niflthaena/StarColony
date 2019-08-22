@@ -5,24 +5,16 @@ label miningwitheriumC:
     menu:
         
         "I'm rich!":
-            
-            $ reputation-=20
-            $ show_reputation=True
-            $ credits+=60
-            $ show_credits=True
+            $ addReputation(-20)
+            $ addCredits(60)
             
             e "..."
         
         "Share it with the people of %(player_colony)s.":
-        
-            $ reputation+=10
-            $ show_reputation=True
-            $ credits+=10
-            $ show_credits=True
-            $ tech+=10
-            $ show_tech=True
-            $ fleet+=10
-            $ show_fleet=True
+            $ addReputation(10)
+            $ addCredits(10)
+            $ addTech(10)
+            $ addFleet(10)
             
             e "%(player_colony)s will benefit greatly from this."
 

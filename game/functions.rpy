@@ -1,4 +1,5 @@
 init python:
+    #Event management functions
     Events = dict()
     def clearEvents():
         global Events
@@ -25,5 +26,28 @@ init python:
             if randomVal <= totalWeight:
                 return event[1]
         return False
-
-
+    #Event content functions
+    def addReputation(amount):
+        global reputation
+        reputation += amount
+        global show_reputation
+        show_reputation = True
+        return
+    def addCredits(amount):
+        global credits
+        credits += amount
+        global show_credits
+        show_credits = True
+        return
+    def addTech(amount):
+        global tech
+        tech += amount
+        global show_tech
+        show_tech = True
+        return
+    def addFleet(amount):
+        global fleet
+        fleet += amount
+        global show_fleet
+        show_fleet = True
+        return
