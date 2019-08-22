@@ -8,6 +8,11 @@ init python:
         global Events
         Events[id] = [weight, label]
         return True
+    def unregisterEvent(id):
+        global Events
+        if id in Events:
+            del Events[id]
+        return
     def chooseRandomEvent():
         global Events
         totalWeight = 0
