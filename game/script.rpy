@@ -139,6 +139,28 @@ init python:
     config.overlay_functions.append(stats_overlay)
 
 
+
+################################################################################
+## Game specific screens
+################################################################################
+
+screen questLog(questTexts):
+    modal True
+    zorder 300
+    style_prefix "help"
+    frame:
+        xpadding 10
+        ypadding 10
+        xalign 0.5
+        yalign 0.5
+        vbox:
+            for i, entry in enumerate(questTexts):
+                text entry
+            if len(questTexts) == 0:
+                text "You have no quests..."
+            textbutton "Back" action Hide('questLog')
+
+
 # The game starts here.
 
 label start:
@@ -256,6 +278,27 @@ label tutorial:
 
     
 label beginning:
+    # Quests can be registered via the following syntax:
+    # $ registerQuest(
+    #     'test', # Arbitrary string ID.
+    #     'Test Quest. Get more than 50% credits.', # Text description.
+    #     ["CreditRatio() > 0.5"], # Array of requirements. Multiple requirements are supported.
+    #     "testQuestComplete", # Callback label. Label MUST end with Return, not Jump.
+    #     False # Persistence. If true, does not reset when the world ends.
+    #     )
+
+    # Quests can be unregistered using their ID:
+    # $ unregisterQuest('test')
+
+    # Events can be registered via the following syntax:
+    # $ registerEvent(
+    #     'id', # Arbitrary string ID.
+    #     'label', # Callback label. Should jump to base_travel_events when done.
+    #     100 # Int weight. Higher values are more likely to be chosen.
+    #     )
+
+    # Events can be unregistered using their ID:
+    # $ unregisterEvent('id')
 
     $ clearEvents()
     $ registerEvent("miningwitheriumC", "miningwitheriumC", 1)
@@ -307,12 +350,18 @@ label beginning:
     $ show_credits=True
     $ show_tech=True
     $ show_fleet=True
+
     
     # Randomization Event code
     
 label base_travel_events:
+
+    # Check quests for completion
+    $ checkQuests()
+
+    # $ showQuestLog()
     
-    # Check loss conditions first, before moving to random choice
+    # Check loss conditions, before moving to random choice
     
     if reputation <= 0:
         jump reputationZ

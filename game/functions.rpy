@@ -1,5 +1,5 @@
 init python:
-    #Event management functions
+    # Event management functions
     Events = dict()
     def clearEvents():
         global Events
@@ -26,7 +26,7 @@ init python:
             if randomVal <= totalWeight:
                 return event[1]
         return False
-    #Event content functions
+    # Event content functions
     def addReputation(amount):
         global reputation
         reputation += amount
@@ -51,3 +51,82 @@ init python:
         global show_fleet
         show_fleet = True
         return
+
+    # Quest functions
+    TemporaryQuests = dict()
+    PersistentQuests = dict()
+    def clearQuests():
+        global TemporaryQuests
+        TemporaryQuests = dict()
+        return
+    # string id: arbitrary, not shown to the player. Use to override or unregister.
+    # string text: quest text to show in the quest log.
+    # string[] conditions: a set of conditions to evaluate, such as ["FleetRatio() > 0.75", "TechRatio() > 0.75"].
+    # string callback: Label to call once the quest is complete. Note: This should end with a RETURN, not a JUMP.
+    # bool isPersistent: Whether the quest lasts between playthroughs.
+    def registerQuest(id, text, conditions, callback, isPersistent):
+        quest = [text, conditions, callback]
+        if isPersistent:
+            global PersistentQuests
+            PersistentQuests[id] = quest
+        else:
+            global TemporaryQuests
+            TemporaryQuests[id] = quest
+        return
+    def unregisterQuest(id):
+        global TemporaryQuests
+        if id in TemporaryQuests:
+            del TemporaryQuests[id]
+        global PersistentQuests
+        if id in PersistentQuests:
+            del PersistentQuests[id]
+        return
+    def checkQuests():
+        for id, quest in TemporaryQuests.items():
+            checkQuest(id, quest)
+        for id, quest in PersistentQuests.items():
+            checkQuest(id, quest)
+        return
+    def checkQuest(id, quest):
+        for condition in quest[1]:
+            if not eval(condition):
+                return
+        # If all conditions pass, quest is complete.
+        unregisterQuest(id)
+        renpy.call(quest[2])
+        return
+    def showQuestLog():
+        questTexts = []
+        for id, quest in TemporaryQuests.items():
+            questTexts.append(quest[0])
+        for id, quest in PersistentQuests.items():
+            questTexts.append(quest[0])
+        renpy.show_screen('questLog', questTexts)
+        renpy.restart_interaction()
+        return
+
+    ## Quest log button definition. Located here so it's in scope for the showQuestLog function.
+    def quest_button():
+        if len(TemporaryQuests) + len(PersistentQuests) > 0:
+            ui.frame(
+                xpos = 100,
+                ypos = 25
+                )
+            ui.imagebutton(
+                idle = "gui/questlog_idle.png",
+                hover = "gui/questlog_hover.png",
+                action = showQuestLog
+                )
+    config.overlay_functions.append(quest_button)
+
+
+    # Resource ratio helper functions
+    # Because these are all ints, and division floors by default, these helper functions will get around that.
+    def ReputationRatio():
+        return (reputation * 1.0) / max_reputation
+    def CreditRatio():
+        return (credits * 1.0) / max_credits
+    def TechRatio():
+        return (tech * 1.0) / max_tech
+    def FleetRatio():
+        return (fleet * 1.0) / max_fleet
