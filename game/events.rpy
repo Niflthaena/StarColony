@@ -1068,3 +1068,9 @@ label vigilanteO:
                 c "Breaking rules has consequences."
                 
         jump base_travel_events
+
+label testQuestComplete:
+    "You finished the quest!"
+    "Congratulations. It's party time."
+    $ addReputation(30)
+    return

@@ -307,12 +307,18 @@ label beginning:
     $ show_credits=True
     $ show_tech=True
     $ show_fleet=True
+
+    $ registerQuest('test', 'This is a test quest to exceed 50\% credits.', ["credits / max_credits > 0.5"], "testQuestComplete", False)
     
     # Randomization Event code
     
 label base_travel_events:
+
+    # Check quests for completion
+
+    $ checkQuests()
     
-    # Check loss conditions first, before moving to random choice
+    # Check loss conditions, before moving to random choice
     
     if reputation <= 0:
         jump reputationZ
