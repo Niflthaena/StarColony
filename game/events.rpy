@@ -5,16 +5,16 @@ label miningwitheriumC:
     menu:
         
         "I'm rich!":
-            $ addReputation(-20)
-            $ addCredits(60)
+            $ reputation-=-20
+            $ credits-=60
             
             e "..."
         
         "Share it with the people of %(player_colony)s.":
-            $ addReputation(10)
-            $ addCredits(10)
-            $ addTech(10)
-            $ addFleet(10)
+            $ reputation+=10
+            $ credits+=10
+            $ tech+=10
+            $ fleet+=10
             
             e "%(player_colony)s will benefit greatly from this."
 
@@ -114,6 +114,7 @@ label expeditionF:
                 $ credits-=50
                 $ show_credits=True
                 $ expedition+=1
+                $ registerEvent("expeditionF", "expeditionF", 200)
                 
                 e "I'll send a group of my men to explore, %(title)s. You'll be the first to hear about whatever they find!"
                 
@@ -160,6 +161,7 @@ label expeditionF:
                 
         # set expedition to 0
         $ expedition=0
+        $ registerEvent("expeditionF", "expeditionF", 100)
             
         jump base_travel_events
                 
@@ -277,6 +279,7 @@ label aiT:
                     
                 m "We'll teach those robots to know their place."
                 
+        $ registerEvent("aiT", "aiT", 300)
         jump base_travel_events
         
     elif robot == 1:
@@ -326,6 +329,7 @@ label aiT:
                 $ fleet-=10
                 $ show_fleet=True
                 $ title = "Tyrant"
+                $ robot = 5
                 
                 l "We'll add it to the scrap heap, then. Let's hope the robots cease this free will nonsense."
                 l "People don't seem to like how we've been dealing with the robots. They've started calling you a %(title)s."
@@ -340,10 +344,12 @@ label aiT:
                 $ show_tech=True
                 $ fleet-=10
                 $ show_fleet=True
+                $ robot = 5
                 
                 l "I'll personally go and tell the scientists to get it right this time. Let's hope this is the last case of a robot uprising."
                 l "People don't seem to like how we've been dealing with the robots. They've started calling you a %(title)s."
-                
+        
+        $ registerEvent("aiT", "aiT", 400)
         jump base_travel_events
     
     elif robot == 3:
@@ -395,6 +401,33 @@ label aiT:
                 $ show_tech=True
                 
                 l "A message came with the gift. It says 'I hope you find my continued support beneficial'."
+                
+        jump base_travel_events
+        
+            
+    elif robot == 5:
+        
+        l "There's still unrest about the robot uprising."
+        
+        menu:
+            
+            "Tell the people to chill out.":
+                
+                $ reputation-=10
+                $ show_reputation=True
+                $ credits-=10
+                $ show_credits=True
+                
+                l "When will we find peace?"
+            
+            "Can't you do something about that.":
+                
+                $ reputation-=10
+                $ show_reputation=True
+                $ credits-=10
+                $ show_credits=True
+                
+                l "I'm doing my best, but no one is happy with the outcome."
                 
         jump base_travel_events
         
@@ -595,7 +628,8 @@ label warF:
                 $ war = 2
             
                 c "We'll try to avoid all-out war."
-            
+        
+        $ registerEvent("warF", "warF", 200)
         jump base_travel_events
         
     elif war == 1:
@@ -652,6 +686,7 @@ label warF:
                 $ show_tech=True
                 $ fleet-=20
                 $ show_fleet=True
+                $ registerEvent("warF", "warF", 300) 
                 
                 $ war = 3
                 
@@ -793,6 +828,7 @@ label investmentC:
                 $ reputation+=10
                 $ show_reputation=True
                 $ investment = 1
+                $ registerEvent("investmentC", "investmentC", 300)
             
                 e "They will make good use of the money."
                 
@@ -825,6 +861,7 @@ label investmentC:
                 
                 e "They were astounded by your generosity, %(title)s %(player_name)s."
                 
+        $ registerEvent("investmentC", "investmentC", 300)
         jump base_travel_events
         
 label festivalR:
@@ -856,7 +893,7 @@ label clonesT:
     
     if clone == 0:
         
-        m "We could create clones to minimize daily workload, improve our medical technology, and fight our wars."
+        m "We could create clones to minimize daily workload, improve our medical technology, and fight our wars. There's no downside!"
     
         menu:
         
@@ -871,6 +908,7 @@ label clonesT:
                 $ fleet+=20
                 $ show_fleet=True
                 $ clone = 1
+                $ registerEvent("clonesT", "clonesT", 300)
                 
                 m "The best part is there's absolutely no risk involved."
                 
@@ -900,6 +938,7 @@ label clonesT:
                 $ fleet+=20
                 $ show_fleet=True
                 $ clone = 2
+                $ registerEvent("clonesT", "clonesT", 400)
                 
                 m "We'll have so many clones that no one will dare to attack us!"
                 
@@ -941,6 +980,7 @@ label clonesT:
                 m "I'll be back after we make some more."
                 l "People are really impressed with your clone army. They've started calling you %(title)s."
                 
+        $ registerEvent("clonesT", "clonesT", 600)
         jump base_travel_events
 
 label diseaseO:
