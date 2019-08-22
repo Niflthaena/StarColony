@@ -257,6 +257,31 @@ label tutorial:
     
 label beginning:
 
+
+    """ Quests can be registered via the following syntax:
+    $ registerQuest(
+        'test', # Arbitrary string ID.
+        'Quest. Get more than 50\% credits.', # Text description.
+        ["CreditRatio() > 0.5"], # Array of requirements. Multiple requirements are supported.
+        "testQuestComplete", # Callback label. Label MUST end with Return, not Jump.
+        False # Persistence. If true, does not reset when the world ends.
+        )
+
+    Quests can be unregistered using their ID:
+    $ unregisterQuest('test')
+    """
+
+    """ Events can be registered via the following syntax:
+    $ registerEvent(
+        'id', # Arbitrary string ID.
+        'label', # Callback label. Should jump to base_travel_events when done.
+        100 # Int weight. Higher values are more likely to be chosen.
+        )
+
+    Events can be unregistered using their ID:
+    $ unregisterEvent('id')
+    """
+
     $ clearEvents()
     $ registerEvent("miningwitheriumC", "miningwitheriumC", 1)
     $ registerEvent("colonistaidF", "colonistaidF", 1)
@@ -308,14 +333,12 @@ label beginning:
     $ show_tech=True
     $ show_fleet=True
 
-    $ registerQuest('test', 'This is a test quest to exceed 50\% credits.', ["credits / max_credits > 0.5"], "testQuestComplete", False)
     
     # Randomization Event code
     
 label base_travel_events:
 
     # Check quests for completion
-
     $ checkQuests()
     
     # Check loss conditions, before moving to random choice

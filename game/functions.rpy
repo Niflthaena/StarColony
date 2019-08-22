@@ -1,5 +1,4 @@
 init python:
-    from __future__ import division
     # Event management functions
     Events = dict()
     def clearEvents():
@@ -62,7 +61,7 @@ init python:
         return
     # string id: arbitrary, not shown to the player. Use to override or unregister.
     # string text: quest text to show in the quest log.
-    # string[] conditions: a set of conditions to evaluate, such as ["fleet / max_fleet > 0.75", "tech / max_tech > 0.75"].
+    # string[] conditions: a set of conditions to evaluate, such as ["FleetRatio() > 0.75", "TechRatio() > 0.75"].
     # string callback: Label to call once the quest is complete. Note: This should end with a RETURN, not a JUMP.
     # bool isPersistent: Whether the quest lasts between playthroughs.
     def registerQuest(id, text, conditions, callback, isPersistent):
@@ -90,10 +89,20 @@ init python:
         return
     def checkQuest(id, quest):
         for condition in quest[1]:
-            renpy.log("Testing condition" + condition)
             if not eval(condition):
                 return
         # If all conditions pass, quest is complete.
-        renpy.call(callback)
         unregisterQuest(id)
+        renpy.call(quest[2])
         return
+
+    # Resource ratio helper functions
+    # Because these are all ints, and division floors by default, these helper functions will get around that.
+    def ReputationRatio():
+        return (reputation * 1.0) / max_reputation
+    def CreditRatio():
+        return (credits * 1.0) / max_credits
+    def TechRatio():
+        return (tech * 1.0) / max_tech
+    def FleetRatio():
+        return (fleet * 1.0) / max_fleet
