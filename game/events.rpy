@@ -5,8 +5,8 @@ label miningwitheriumC:
     menu:
         
         "I'm rich!":
-            $ reputation-=-20
-            $ credits-=60
+            $ reputation-=20
+            $ credits+=60
             
             e "..."
         
@@ -51,7 +51,7 @@ label colonistaidF:
     
 label alchemyT:
     
-    m "%(title)s %(player_name)s, We've made a breakthrough in alchemical technology!"
+    m "%(title)s %(player_name)s, We've made a breakthrough in alchemical technology!" 
     
     menu:
         
@@ -314,7 +314,7 @@ label aiT:
             
     elif robot == 2:
         
-        l "The AI advocating for human rights has had an episode of violence. Some colonists and soldiers were killed, but we caught one of the robot rebels. What should we do with it?"
+        l "The AI advocating for human rights has had an episode of violence. Some colonists and soldiers were killed, but we caught one of the robot rebels. What should we do with it?" (interact=False)
         
         menu:
             
@@ -380,7 +380,7 @@ label aiT:
         
     elif robot == 4:
         
-        l "Your definitely not robot girlfriend wants to send you a gift. She asked if you prefer money or technology."
+        l "Your definitely not robot girlfriend wants to send you a gift. She asked if you prefer money or technology." 
         
         menu:
             
@@ -433,7 +433,7 @@ label aiT:
         
 label doctorT:
     
-    m "A famous doctor has traveled all the way from megapolis planet Lumines to our little colony %(player_colony)s. He's offering his services here."
+    m "A famous doctor has traveled all the way from megapolis planet Lumines to our little colony %(player_colony)s. He's offering his services here." 
     
     menu:
             
@@ -489,7 +489,7 @@ label experimentT:
     
 label mutationsT:
     
-    m "Some of the people on %(player_colony)s are mutating and getting special powers. They could be dangerous if left alone, but capturing them will be expensive. What should we do?"
+    m "Some of the people on %(player_colony)s are mutating and getting special powers. They could be dangerous if left alone, but capturing them will be expensive. What should we do?" 
     
     menu:
             
@@ -523,7 +523,7 @@ label mutationsT:
     
 label parasiteT:
     
-    m "We've captured a parasitic alien creature, native to %(player_colony)s. It's killed a lot of people. What should we do with it?"
+    m "We've captured a parasitic alien creature, native to %(player_colony)s. It's killed a lot of people. What should we do with it?" 
     
     menu:
         
@@ -573,7 +573,7 @@ label piratesF:
     
 label roguesF: 
     
-    c "Local thugs have begun extorting businesses for 'protection' money."
+    c "Local thugs have begun extorting businesses for 'protection' money." 
     
     menu:
         
@@ -634,7 +634,7 @@ label warF:
         
     elif war == 1:
         
-        c "We managed to win a skirmish against the Geddon, and capture one of their captains. My men desire their revenge for their fallen comrades. What shall we do with our enemies?"
+        c "We managed to win a skirmish against the Geddon, and capture one of their captains. My men desire their revenge for their fallen comrades. What shall we do with our enemies?" 
         
         menu:
             
@@ -672,7 +672,7 @@ label warF:
         
     elif war == 2:
         
-        c "The Geddon sent us terms for our surrender, and it's pretty brutal. They've already boxed in our fleet, so fighting is no longer an option. Should we accept their terms?"
+        c "The Geddon sent us terms for our surrender, and it's pretty brutal. They've already boxed in our fleet, so fighting is no longer an option. Should we accept their terms?" 
         
         menu:
             
@@ -709,7 +709,7 @@ label warF:
                 
     elif war == 3:
             
-        l "The Geddon are demanding that we send them tribute."
+        l "The Geddon are demanding that we send them tribute." 
             
         menu:
                 
@@ -737,7 +737,7 @@ label warF:
                 
 label weaponF:
     
-    c "Our fleet is ill-equipped. We should spend to improve our weapons."
+    c "Our fleet is ill-equipped. We should spend to improve our weapons." 
     
     menu:
         
@@ -763,7 +763,7 @@ label weaponF:
     
 label wagesF:
     
-    c "You should pay the soldiers of our fleet more. It will attract more recruits."
+    c "You should pay the soldiers of our fleet more. It will attract more recruits." 
     
     menu:
         
@@ -788,7 +788,7 @@ label wagesF:
             
 label taxesCE:
     
-    e "%(title)s %(player_name)s, the taxes are too high for the people of %(player_colony)s. Please lower them slightly."
+    e "%(title)s %(player_name)s, the taxes are too high for the people of %(player_colony)s. Please lower them slightly." 
     
     menu:
         
@@ -817,7 +817,8 @@ label investmentC:
     
     if investment == 0:
     
-        e "Entrepreneurs from Lumines have taken an interest in our colony %(player_colony)s for its natural salt content. They want a loan of credits and promise to pay you back when their salt business profits."
+        e "Entrepreneurs from Lumines have taken an interest in our colony %(player_colony)s for its natural salt content."
+        e "They want a loan of credits and promise to pay you back when their salt business profits."
     
         menu:
         
@@ -866,7 +867,7 @@ label investmentC:
         
 label festivalR:
     
-    e "The people of %(player_colony)s work extremely hard. Let's throw a huge party so they can relax."
+    e "The people of %(player_colony)s work extremely hard. Let's throw a huge party so they can relax." 
     
     menu:
         
@@ -923,7 +924,7 @@ label clonesT:
         
     elif clone == 1:
         
-        m "The clones we created have extremely short life spans. We should research how to make more."
+        m "The clones we created have extremely short life spans. We should research how to make more." 
         
         menu:
             
@@ -953,7 +954,7 @@ label clonesT:
                 
     elif clone == 2:
         
-        m "I'm here to drop off your yearly batch of clones."
+        m "I'm here to drop off your yearly batch of clones." 
         
         menu:
             
@@ -1019,7 +1020,7 @@ label diseaseO:
         
     elif disease == 1:
         
-        e "Despite our best efforts, the virus is evolving and hitting more people."
+        e "Despite our best efforts, the virus is evolving and hitting more people." 
         
         menu:
             
@@ -1054,7 +1055,7 @@ label vigilanteO:
     
     if vigilante == 0:
     
-        c "A vigilante has started taking the law into their own hands. People love them, but we should put up a bounty and stop them."
+        c "A vigilante has started taking the law into their own hands. People love them, but we should put up a bounty and stop them." 
         
         menu:
             
@@ -1083,7 +1084,7 @@ label vigilanteO:
         
     elif vigilante == 1:
         
-        c "We managed to capture that vigilante. I'd like to make an example of her."
+        c "We managed to capture that vigilante. I'd like to make an example of her." 
             
         menu:
                 
@@ -1108,3 +1109,160 @@ label vigilanteO:
                 c "Breaking rules has consequences."
                 
         jump base_travel_events
+        
+label pollution:
+    
+    e "There was an accident while extracting witherium and some of the waste polluted a nearby stream."
+    e "If we don't act soon, the wildlife could become endangered." 
+    
+    menu:
+        
+        "Clean it.":
+            
+            $ reputation+=20
+            $ show_reputation=True
+            $ credits-=20
+            $ show_credits=True
+            
+            e "Thank you. We should be able to continue our extractions without further incident."
+            
+        "I can't afford that...":
+            
+            $ reputation+=20
+            $ show_reputation=True
+            
+            e "Many species of animals may die out as a result. We'll see where this leaves us in a few years..."
+            
+    jump base_travel_events
+    
+label embezzle:
+
+    l "There was corruption in the Star Armada fleet, and one of the higher-ups was sending colony resources to fund his own ventures." 
+    
+    menu:
+        
+        "Send him jail.":
+        
+            $ reputation+=20
+            $ show_reputation=True
+            $ credits-=10
+            $ show_credits=True
+        
+            l "Too bad he can't pay us back in prison."
+            
+        "Blackmail him.":
+            
+            $ reputation-=10
+            $ show_reputation=True
+            $ credits+=20
+            $ show_credits=True
+            
+            l "He can stay in the fleet for now, at least until he pays back what he owes with interest."
+            
+    jump base_travel_events
+    
+label inflation:
+    
+    l "We're importing too many goods and our own merchants can't compete with their lower prices. If this continues, our market will collapse."
+    
+    menu:
+        
+        "Impose heavier tariffs.":
+    
+            $ reputation-=10
+            $ show_reputation=True
+            $ credits+=20
+            $ show_credits=True
+        
+            l "We can use this as an opportunity to make more money until the market stabalizes."
+        
+        "Leave it.":
+            
+            $ reputation+=10
+            $ show_reputation=True
+            $ credits-=20
+            $ show_credits=True
+            
+            l "The merchants will be happy, but it will hurt our economy in the long term."
+            
+    jump base_travel_events
+    
+label immigrants:
+    
+    e "We have too many people interested in coming to %(player_colony)s! We should build more to accomodate them." 
+    
+    menu:
+        
+        "Build it up!":
+            
+            $ reputation+=10
+            $ show_reputation=True
+            $ credits-=20
+            $ show_credits=True
+            $ fleet+=10
+            $ show_fleet=True
+            $ tech+=10
+            $ show_tech=True
+            
+            e "They have settled in quite well. Some have taken jobs in the Star Armada and Science Division."
+        
+        "Turn them away.":
+            
+            $ reputation-=20
+            $ show_reputation=True
+            
+            e "They came from across the galaxy, but we'll have to send them back."
+            
+    jump base_travel_events
+    
+label storm:
+    
+    e "A terrible storm wrecked many of the colonists' homes. We just need some extra hands to help with construction." 
+    
+    menu:
+        
+        "Send soldiers to help with construction.":
+            
+            $ reputation+=20
+            $ show_reputation=True
+            $ fleet-=10
+            $ show_fleet=True
+            
+            e "Thank you. We will be able to get this work done much faster."
+            
+        "Tough it up, buttercup!":
+        
+            $ reputation-=20
+            $ show_reputation=True
+            
+            e "It is going to be a long road to recovery."
+            
+    jump base_travel_events
+    
+label fauna:
+    
+    m "We've discovered a new kind of carnivorous plant, unique to %(player_colony)s. I bet we could cultivate it to destroy our enemies!" 
+    
+    menu:
+        
+        "Unleash the plants!":
+            
+            $ reputation-=20
+            $ show_reputation=True
+            $ fleet+=10
+            $ show_fleet=True
+            $ tech+=10
+            $ show_tech=True
+            
+            m "Yes, yes! We will create an army of plants!"
+            
+        "Sounds dangerous.":
+            
+            $ reputation+=10
+            $ show_reputation=True
+            $ tech-=10
+            $ show_tech=True
+            
+            m "Bah, don't be confined by what your people say. This could have been a great opportunity."
+            
+    jump base_travel_events

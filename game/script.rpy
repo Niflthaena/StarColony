@@ -1,6 +1,9 @@
 ﻿# The script of the game goes in this file.
 
-image bg defaultBG = "defaultBG.jpg"
+image bg defaultBG = "game_background_00.png"
+image bg BG01 = "game_background_01.png"
+image bg BG02 = "game_background_02.png"
+image bg BG03 = "game_background_03.png"
 
 # Declare characters used by this game. The color argument colorizes the
 # name of the character.
@@ -325,6 +328,12 @@ label beginning:
     $ registerEvent("clonesT", "clonesT", 100)
     $ registerEvent("diseaseO", "diseaseO", 100)
     $ registerEvent("vigilanteO", "vigilanteO", 100)
+    $ registerEvent("pollution", "pollution", 100)
+    $ registerEvent("embezzle", "embezzle", 100)
+    $ registerEvent("inflation", "inflation", 100)
+    $ registerEvent("immigrants", "immigrants", 100)
+    $ registerEvent("storm", "storm", 100)
+    $ registerEvent("fauna", "fauna", 100)
     
     scene bg defaultBG
     
@@ -380,20 +389,27 @@ label base_travel_events:
     elif fleet >= 100:
         jump fleetM
         
-    # increase years counter if no losses are met
+    # increase years counter if no losses are met. Change BG with years
     $ years+=1
     
     if years <= 1:
         l "%(player_colony)s has been colonized for %(years)s year."
     elif years >= 2:
         l "%(player_colony)s has been colonized for %(years)s years."
-    
+    elif years >=5:
+        scene bg BG01 with dissolve
+        l "%(player_colony)s has been colonized for %(years)s years."
+    elif years >=10:
+        scene bg BG02 with dissolve
+        l "%(player_colony)s has been colonized for %(years)s years."
+    elif years >=15:
+        scene bg BG03 with dissolve
+        l "%(player_colony)s has been colonized for %(years)s years."
 
     # event hub
     $ choice = chooseRandomEvent()
     jump expression choice
 
-            
 ## Death Scenes
 
 label reputationM:
