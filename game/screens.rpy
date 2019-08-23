@@ -136,7 +136,7 @@ style window:
     yalign gui.textbox_yalign
     ysize gui.textbox_height
 
-    background Image("gui/textbox.png", xalign=0.5, yalign=1.0)
+    background Image("gui/Dialog_Box.png", xalign=0.5, yalign=1.0)
 
 style namebox:
     xpos gui.name_xpos
@@ -196,43 +196,6 @@ style input:
     xmaximum gui.dialogue_width
 
 
-## Choice screen ###############################################################
-##
-## This screen is used to display the in-game choices presented by the menu
-## statement. The one parameter, items, is a list of objects, each with caption
-## and action fields.
-##
-## https://www.renpy.org/doc/html/screen_special.html#choice
-
-screen choice(items):
-    style_prefix "choice"
-
-    vbox:
-        for i in items:
-            textbutton i.caption action i.action
-
-
-## When this is true, menu captions will be spoken by the narrator. When false,
-## menu captions will be displayed as empty buttons.
-define config.narrator_menu = True
-
-
-style choice_vbox is vbox
-style choice_button is button
-style choice_button_text is button_text
-
-style choice_vbox:
-    xalign 0.5
-    ypos 270
-    yanchor 0.5
-
-    spacing gui.choice_spacing
-
-style choice_button is default:
-    properties gui.button_properties("choice_button")
-
-style choice_button_text is default:
-    properties gui.button_text_properties("choice_button")
 
 
 ## Quick Menu screen ###########################################################
@@ -301,7 +264,7 @@ screen navigation():
 
         if main_menu:
 
-            textbutton _("Start") action Start()
+            imagebutton idle "gui/button/Start_Button.png" hover "gui/button/Start_Button_Hover.png" action Start()
 
         else:
 
@@ -309,9 +272,9 @@ screen navigation():
 
             textbutton _("Save") action ShowMenu("save")
 
-        textbutton _("Load") action ShowMenu("load")
+        imagebutton idle "gui/button/Load_Button.png" hover "gui/button/Load_Button_Hover.png" action ShowMenu("load")
 
-        textbutton _("Preferences") action ShowMenu("preferences")
+        imagebutton idle "gui/button/Prefs_Button.png" hover "gui/button/Prefs_Button_Hover.png" action ShowMenu("preferences")
 
         if _in_replay:
 
@@ -321,15 +284,15 @@ screen navigation():
 
             textbutton _("Main Menu") action MainMenu()
 
-        textbutton _("About") action ShowMenu("about")
+        imagebutton idle "gui/button/About_Button.png" hover "gui/button/About_Button_Hover.png" action ShowMenu("about")
 
         if renpy.variant("pc"):
 
             ## Help isn't necessary or relevant to mobile devices.
-            textbutton _("Help") action ShowMenu("help")
+            imagebutton idle "gui/button/Help_Button.png" hover "gui/button/Help_Button_Hover.png" action ShowMenu("help")
 
             ## The quit button is banned on iOS and unnecessary on Android.
-            textbutton _("Quit") action Quit(confirm=not main_menu)
+            imagebutton idle "gui/button/Quit_Button.png" hover "gui/button/Quit_Button_Hover.png" action Quit(confirm=not main_menu)
 
 
 style navigation_button is gui_button
@@ -386,7 +349,7 @@ style main_menu_frame:
     xsize 280
     yfill True
 
-    background "gui/overlay/main_menu.png"
+    #background "gui/overlay/main_menu.png"
 
 style main_menu_vbox:
     xalign 1.0
@@ -1173,7 +1136,7 @@ style confirm_button is gui_medium_button
 style confirm_button_text is gui_medium_button_text
 
 style confirm_frame:
-    background Frame([ "gui/confirm_frame.png", "gui/frame.png"], gui.confirm_frame_borders, tile=gui.frame_tile)
+    background Frame([ "gui/confirm_frame.png", "gui/Pop_Up.png"], gui.confirm_frame_borders, tile=gui.frame_tile)
     padding gui.confirm_frame_borders.padding
     xalign .5
     yalign .5
@@ -1510,7 +1473,116 @@ style slider_pref_slider:
     variant "small"
     xsize 600
 
+## Bespoke styles ################################################
+
+style my_bar:
+    xalign 0.5
+    xmaximum 315
+    ymaximum 30
+    left_gutter 5
+    right_gutter 5
+    left_bar Frame("ui/bar_full.png", 0, 0)
+    right_bar Frame("ui/bar_empty.png", 0, 0)
+    hover_left_bar Frame("ui/bar_hover.png", 0, 0)
+    thumb "ui/thumb.png"
+    thumb_shadow None
+    thumb_offset 5
+
+style resource_bar:
+    yalign 0.5
+    xmaximum 315
+    ymaximum 72
+    left_bar Frame("images/UI/Meter_full.png", 0, 0)
+    right_bar Frame("images/UI/Meter_empty.png", 0, 0)
+    left_gutter 12
+    right_gutter 12
 
 
+style frame_resource_box:
+    ypos 10
+    padding gui.resource_frame_borders.padding
+
+style frame_reputation_box:
+    take frame_resource_box
+    xpos 10
+    background "images/UI/Rep_Meter.png"
+
+style frame_credits_box:
+    take frame_resource_box
+    xpos 330
+    background "images/UI/Credits_Meter.png"
+
+style frame_tech_box:
+    take frame_resource_box
+    xpos 650
+    background "images/UI/Tech_Meter.png"
+
+style frame_fleet_box:
+    take frame_resource_box
+    xpos 970
+    background "images/UI/Fleet_Meter.png"
+
+## Choice screen ###############################################################
+##
+## This screen is used to display the in-game choices presented by the menu
+## statement. The one parameter, items, is a list of objects, each with caption
+## and action fields.
+##
+## https://www.renpy.org/doc/html/screen_special.html#choice
+
+screen choice(items):
+    style_prefix "choice"
+    default hovered = -1
+
+    vbox:
+        for i, item in enumerate(items):
+            if i == 0:
+                textbutton item.caption action item.action style "choice_frame_0" text_style "choice_frame"
+            elif i == 1:
+                textbutton item.caption action item.action style "choice_frame_1" text_style "choice_frame"
+            else:
+                textbutton item.caption action item.action
 
 
+## When this is true, menu captions will be spoken by the narrator. When false,
+## menu captions will be displayed as empty buttons.
+define config.narrator_menu = True
+
+
+style choice_vbox is vbox
+style choice_button is button
+style choice_button_text is button_text
+
+
+style choice_button is default:
+    properties gui.button_properties("choice_button")
+
+style choice_button_text is default:
+    properties gui.button_text_properties("choice_button")
+
+
+style choice_vbox:
+    xalign 0.5
+    ypos 320
+    yanchor 0.5
+
+    spacing gui.choice_spacing
+
+style choice_frame:
+    xsize gui.prompt_button_width
+    ysize gui.prompt_button_height
+    xalign 0.5
+    yalign 0.5
+    text_align 0.0
+
+style choice_frame_0:
+    take choice_frame
+    idle_background "gui/button/PopUp_Choice01.png"
+    hover_background "gui/button/PopUp_Choice01_Hover.png"
+    padding gui.prompt_0_borders.padding
+
+style choice_frame_1:
+    take choice_frame
+    idle_background "gui/button/PopUp_Choice02.png"
+    hover_background "gui/button/PopUp_Choice02_Hover.png"
+    padding gui.prompt_1_borders.padding

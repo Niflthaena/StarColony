@@ -18,7 +18,7 @@ define config.name = _("Star Colony")
 ## Determines if the title given above is shown on the main menu screen. Set
 ## this to False to hide the title.
 
-define gui.show_name = True
+define gui.show_name = False
 
 
 ## The version of the game.
@@ -211,23 +211,3 @@ init python:
 ## by a slash.
 
 # define build.itch_project = "renpytom/test-project"
-
-init -5 python:
-    #custom bar -----------------------
-    style.my_bar = Style(style.default)
-    style.my_bar.xalign = 0.5
-    style.my_bar.xmaximum = 315 # bar width
-    style.my_bar.ymaximum = 30 # bar height
-    style.my_bar.left_gutter = 5
-    style.my_bar.right_gutter = 5
-    
-    # I have all my User Interface graphics stored in one file called ui. 
-    # To access them in my code, I put ui/ in front of all images in that file. 
-    
-    style.my_bar.left_bar = Frame("ui/bar_full.png", 0, 0)
-    style.my_bar.right_bar = Frame("ui/bar_empty.png", 0, 0)
-    style.my_bar.hover_left_bar = Frame("ui/bar_hover.png", 0, 0)
-    
-    style.my_bar.thumb = "ui/thumb.png"
-    style.my_bar.thumb_shadow = None
-    style.my_bar.thumb_offset = 5
