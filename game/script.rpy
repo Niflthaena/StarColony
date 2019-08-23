@@ -1,6 +1,10 @@
 ﻿# The script of the game goes in this file.
 
 image bg defaultBG = "defaultBG.jpg"
+image bg bg00 = "Game_Background_00.png"
+image bg bg01 = "Game_Background_01.png"
+image bg bg02 = "Game_Background_02.png"
+image bg bg03 = "Game_Background_03.png"
 
 # Declare characters used by this game. The color argument colorizes the
 # name of the character.
@@ -12,6 +16,7 @@ define m = Character("Max, Head Scientist", color ="#00FF00")
 define n = Character(None, kind=nvl)
 define r = Character("Cute Robot", color="#D3D3D3")
 
+define meter_ticks = 20
 
 # Resource meters
 # Reputation Meter
@@ -22,121 +27,79 @@ init -2 python:
     reputation = 50 #The number of points she Starts with. 
     max_reputation = 100  #The maximum points she can get. 
 
-init python: 
     ## ------------ Reputation Points Activation Code-------------------
     #This controls when the love-points floater appears. 
     show_reputation=False
 
-    ## ------------ Reputation Points Floating Meter --------------------
-    def stats_overlay():               
-        
-        # --- Reputation Bar -------
-        if show_reputation:
-            ui.frame(
-                xpos = 10, #centered 0.5
-                ypos = 100,) #400 px Down from the Top
-            
-            ui.vbox(xalign = 0.5)
-            ui.text ("Reputation: %d" %reputation, 
-                xalign = 0.5)
-            ui.bar(max_reputation, reputation, 
-                style="my_bar")
-            
-            ui.close()
-    config.overlay_functions.append(stats_overlay)
-    
-# Credits meter
-
-init -2 python:
     ## Resource Credits --------------
    
     credits = 50 #The number of points she Starts with. 
     max_credits = 100  #max points
 
-init python: 
     ## ------------ Credits Points Activation Code-------------------
     #This controls when the love-points floater appears. 
     show_credits=False
 
-    ## ------------ Credits Points Floating Meter --------------------
-    def stats_overlay():               
-        
-        # --- Credits Bar -------
-        if show_credits:
-            ui.frame(
-                xpos = 330, #centered 0.5
-                ypos = 100,) #400 px Down from the Top
-            
-            ui.vbox(xalign = 0.5)
-            ui.text ("Credits: %d" %credits, 
-                xalign = 0.5)
-            ui.bar(max_credits, credits, 
-                style="my_bar")
-            
-            ui.close()
-    config.overlay_functions.append(stats_overlay)
-
-# Tech meter
-
-init -2 python:
     ## Resource Tech --------------
    
     tech = 50 #starting points 
     max_tech = 100  #max points
 
-init python: 
     ## ------------ Tech Points Activation Code-------------------
     #This controls when the love-points floater appears. 
     show_tech=False
 
-    ## ------------ Tech Points Floating Meter --------------------
-    def stats_overlay():               
-        
-        # --- Tech Bar -------
-        if show_tech:
-            ui.frame(
-                xpos = 650, #centered 0.5
-                ypos = 100,) #400 px Down from the Top
-            
-            ui.vbox(xalign = 0.5)
-            ui.text ("Tech: %d" %tech, 
-                xalign = 0.5)
-            ui.bar(max_tech, tech, 
-                style="my_bar")
-            
-            ui.close()
-    config.overlay_functions.append(stats_overlay)
-
-# Star Fleet meter
-
-init -2 python:
     ## Resource Fleet --------------
    
     fleet = 50 #starting points 
     max_fleet = 100  #max points
 
-init python: 
     ## ------------ Fleet Points Activation Code-------------------
     #This controls when the love-points floater appears. 
     show_fleet=False
 
-    ## ------------ Fleet Points Floating Meter --------------------
+    ## ------------ Reputation Points Floating Meter --------------------
     def stats_overlay():               
-        
-        # --- Fleet Bar -------
-        if show_fleet:
-            ui.frame(
-                xpos = 950, #centered 0.5
-                ypos = 100,) #400 px Down from the Top
+        renpy.scene('overlay')
+        # --- Reputation Bar -------
+        if show_reputation:
+            ui.frame(style = "frame_reputation_box")
             
             ui.vbox(xalign = 0.5)
-            ui.text ("Fleet: %d" %fleet, 
-                xalign = 0.5)
-            ui.bar(max_fleet, fleet, 
-                style="my_bar")
-            
+            ui.bar(meter_ticks, reputation * meter_ticks / max_reputation, style="resource_bar")
+            ui.text (str(reputation) + " / " + str(max_reputation), xalign = 0.5, ypos = 10)
             ui.close()
-    config.overlay_functions.append(stats_overlay)
+
+        # --- Credits Bar -------
+        if show_credits:
+            ui.frame(style = "frame_credits_box")
+            
+            ui.vbox(xalign = 0.5)
+            ui.bar(meter_ticks, credits * meter_ticks / max_credits, style="resource_bar")
+            ui.text (str(credits) + " / " + str(max_credits), xalign = 0.5, ypos = 10)
+            ui.close()
+
+        # --- Tech Bar -------
+        if show_tech:
+            ui.frame(style = "frame_tech_box")
+            
+            ui.vbox(xalign = 0.5)
+            ui.bar(meter_ticks, tech * meter_ticks / max_tech, style="resource_bar")
+            ui.text (str(tech) + " / " + str(max_tech), xalign = 0.5, ypos = 10)
+            ui.close()
+
+        # --- Fleet Bar -------
+        if show_fleet:
+            ui.frame(style = "frame_fleet_box")
+            
+            ui.vbox(xalign = 0.5)
+            ui.bar(meter_ticks, fleet * meter_ticks / max_fleet, style="resource_bar")
+            ui.text (str(fleet) + " / " + str(max_fleet), xalign = 0.5, ypos = 10)
+            ui.close()
+
+    config.overlay_functions.append(stats_overlay) # redraws when textbox hides
+    #config.window_overlay_functions.append(stats_overlay) # only with textbox
+    #config.interact_callbacks.append(stats_overlay) # redraws often and ugly
 
 
 
@@ -206,7 +169,7 @@ label tutorial:
     $ years = 0
     $ title = "Commander"
     
-    scene bg defaultBG
+    scene bg bg00
     
     "Morning, %(title)s!"
     "Uh-oh. You got that look on your face again. You've forgotten everything, haven't you?"
@@ -326,7 +289,7 @@ label beginning:
     $ registerEvent("diseaseO", "diseaseO", 100)
     $ registerEvent("vigilanteO", "vigilanteO", 100)
     
-    scene bg defaultBG
+    scene bg bg00
     
     l "Let's make %(player_colony)s a great place to live."
     

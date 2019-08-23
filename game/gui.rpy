@@ -99,7 +99,7 @@ define gui.textbox_height = 185
 
 ## The placement of the textbox vertically on the screen. 0.0 is the top, 0.5 is
 ## center, and 1.0 is the bottom.
-define gui.textbox_yalign = 1.0
+define gui.textbox_yalign = 0.99
 
 
 ## The placement of the speaking character's name, relative to the textbox.
@@ -202,7 +202,7 @@ define gui.quick_button_text_selected_color = gui.accent_color
 ##
 ## Choice buttons are used in the in-game menus.
 
-define gui.choice_button_width = 790
+define gui.choice_button_width = 797
 define gui.choice_button_height = None
 define gui.choice_button_tile = False
 define gui.choice_button_borders = Borders(100, 5, 100, 5)
@@ -245,7 +245,7 @@ define gui.file_slot_rows = 2
 
 ## The position of the left side of the navigation buttons, relative to the left
 ## side of the screen.
-define gui.navigation_xpos = 40
+define gui.navigation_xpos = 160
 
 ## The vertical position of the skip indicator.
 define gui.skip_ypos = 10
@@ -254,10 +254,10 @@ define gui.skip_ypos = 10
 define gui.notify_ypos = 45
 
 ## The spacing between menu choices.
-define gui.choice_spacing = 22
+define gui.choice_spacing = 5
 
 ## Buttons in the navigation section of the main and game menus.
-define gui.navigation_spacing = 4
+define gui.navigation_spacing = 10
 
 ## Controls the amount of spacing between preferences.
 define gui.pref_spacing = 10
@@ -471,3 +471,9 @@ init python:
 
 
 
+## Custom elements.
+define gui.resource_frame_borders = Borders(-6, 79, -5, -5)
+define gui.prompt_button_width = 797
+define gui.prompt_button_height = 156
+define gui.prompt_0_borders = Borders(130, 68, 130, 12)
+define gui.prompt_1_borders = Borders(130, 12, 130, 68)

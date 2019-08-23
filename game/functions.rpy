@@ -113,8 +113,8 @@ init python:
                 ypos = 25
                 )
             ui.imagebutton(
-                idle = "gui/questlog_idle.png",
-                hover = "gui/questlog_hover.png",
+                idle = "gui/button/questlog_idle.png",
+                hover = "gui/button/questlog_hover.png",
                 action = showQuestLog
                 )
     config.overlay_functions.append(quest_button)
